@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
+import "github.com/guidev63/curso-go/meet"
 
 func main() {
-	fmt.Println("Hello, world!")
+	meet.SayHello()
 }
