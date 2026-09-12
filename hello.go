@@ -7,17 +7,15 @@ import (
 )
 
 func main() {
-	exibeNomes()
-	//exibeIntroducao()
+	exibeIntroducao()
 	for {
-
-		//exibeMenu()
+		exibeMenu()
 
 		comando := leComando()
 
 		switch comando {
 		case 1:
-			fmt.Println("Monitorando...")
+			iniciaMonitoramento()
 		case 2:
 			fmt.Println("Exibindo Logs...")
 		case 0:
@@ -28,7 +26,6 @@ func main() {
 			os.Exit(-1)
 		}
 	}
-
 }
 
 func exibeMenu() {
@@ -58,14 +55,16 @@ func leComando() int {
 
 func iniciaMonitoramento() {
 	fmt.Println("Monitorando...")
-	var sites [4]string
-	sites[0] = "https://random-status-code.herokuapp.com/"
-	sites[1] = "https://cursos.alura.com.br/"
-	sites[1] = "https://cursos.caelum.com.br/"
+	sites := []string{"https://random-status-code.herokuapp.com/", "https://cursos.alura.com.br/", "https://cursos.caelum.com.br/"}
 
-	fmt.Println(sites)
+	//fmt.Println(sites)
+	for i, site := range sites {
+		fmt.Println("Testando Site", i, ":", site)
+		testaSite(site)
+	}
+}
 
-	site := "https://random-status-code.herokuapp.com/"
+func testaSite(site string) {
 	resp, _ := http.Get(site)
 
 	if resp.StatusCode == 200 {
@@ -73,9 +72,4 @@ func iniciaMonitoramento() {
 	} else {
 		fmt.Println("Site:", site, "Esta com Problemas. Status Code:", resp.StatusCode)
 	}
-}
-
-func exibeNomes() {
-	nomes := []string{"Douglas", "Daniel", "Bernardo"}
-	fmt.Println(nomes)
 }
