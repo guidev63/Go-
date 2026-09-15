@@ -1,13 +1,21 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 )
 
+const monitoramentos = 3
+const delay = 5
+
 func main() {
+
 	exibeIntroducao()
+	leSitesDoArquivo()
+
 	for {
 		exibeMenu()
 
@@ -22,8 +30,7 @@ func main() {
 			fmt.Println("Saindo do Programa")
 			os.Exit(0)
 		default:
-			fmt.Println("Não Conheço este comando")
-			os.Exit(-1)
+			fmt.Println("Não conheço este comando")
 		}
 	}
 }
@@ -35,7 +42,7 @@ func exibeMenu() {
 }
 
 func exibeIntroducao() {
-	nome := "Douglas"
+	nome := "Guilherme"
 	versao := 1.1
 
 	fmt.Println("Olá, Sr.", nome)
@@ -49,27 +56,59 @@ func leComando() int {
 
 	fmt.Println("O endereço da minha variável comando é", &comandoLindo)
 	fmt.Println("O comando escolhido foi", comandoLindo)
+	fmt.Println("")
 
 	return comandoLindo
 }
 
 func iniciaMonitoramento() {
 	fmt.Println("Monitorando...")
-	sites := []string{"https://random-status-code.herokuapp.com/", "https://cursos.alura.com.br/", "https://cursos.caelum.com.br/"}
 
-	//fmt.Println(sites)
-	for i, site := range sites {
-		fmt.Println("Testando Site", i, ":", site)
-		testaSite(site)
+	//  sites := []string{
+	//	"https://random-status-code.herokuapp.com/",
+	//	"https://cursos.alura.com.br/",
+	//	"https://cursos.caelum.com.br/",
+	//}
+
+	sites := leSitesDoArquivo()
+
+	for rodada := 0; rodada < monitoramentos; rodada++ {
+		for i, site := range sites {
+			fmt.Println("Testando site", i, ":", site)
+			testaSite(site)
+		}
+
+		time.Sleep(delay * time.Second)
+		fmt.Println("")
+
 	}
+
+	fmt.Println("")
 }
 
 func testaSite(site string) {
-	resp, _ := http.Get(site)
+	resp, err := http.Get(site)
 
-	if resp.StatusCode == 200 {
-		fmt.Println("Site:", site, "Foi carregado com Sucesso!")
-	} else {
-		fmt.Println("Site:", site, "Esta com Problemas. Status Code:", resp.StatusCode)
+	if err != nil {
+		fmt.Println("Ocorreu um Erro", err)
 	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode == http.StatusOK {
+		fmt.Println("Site:", site, "foi carregado com sucesso!")
+	} else {
+		fmt.Println("Site:", site, "está com problemas. Status Code:", resp.StatusCode)
+	}
+}
+
+func leSitesDoArquivo() []string {
+
+	var sites []string
+
+	arquivo, err := os.Open("sites.txt")
+	if err != nil {
+		fmt.Println("Ocorreu um erro:", err)
+	}
+	bufio.NewReader(arquivo)
+	return sites
 }
