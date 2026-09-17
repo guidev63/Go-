@@ -1,0 +1,14 @@
+16/09/2026 21:21:02 -  site-falso- online: false
+16/09/2026 21:21:52 -  site-falso- online: false
+16/09/2026 21:22:28 -  https://www.alura.com.br- online: true
+16/09/2026 21:22:29 -  https://cursos.alura.com.br- online: true
+16/09/2026 21:22:29 -  https://www.google.com- online: true
+16/09/2026 21:22:31 -  https://www.casadocodigo.com.br- online: true
+16/09/2026 21:22:36 -  https://www.alura.com.br- online: true
+16/09/2026 21:22:37 -  https://cursos.alura.com.br- online: true
+16/09/2026 21:22:37 -  https://www.google.com- online: true
+16/09/2026 21:22:37 -  https://www.casadocodigo.com.br- online: true
+16/09/2026 21:22:42 -  https://www.alura.com.br- online: true
+16/09/2026 21:22:43 -  https://cursos.alura.com.br- online: true
+16/09/2026 21:22:43 -  https://www.google.com- online: true
+16/09/2026 21:22:44 -  https://www.casadocodigo.com.br- online: true
